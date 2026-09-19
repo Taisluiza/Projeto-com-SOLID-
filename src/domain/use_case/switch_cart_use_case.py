@@ -20,7 +20,7 @@ class SwitchCartUseCase:
     def execute(self, cart_id: str, cellphone: Phone, email: Email, new_status: CartStatus):
         cart_entity = self._repository.read(cart_id)
         cart_entity.switch(new_status)
-        message = f"Status de carrinho alterado: {new_status.value}"
+        message = f"cart change status: {new_status.value}"
         for notify_email in self._notify_emails:
             notify_email.send_message(message, email)
 

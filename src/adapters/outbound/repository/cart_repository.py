@@ -38,4 +38,3 @@ class CartRepository(
         ]
         self._carts.remove(result[0])
         self.save(data)
-   

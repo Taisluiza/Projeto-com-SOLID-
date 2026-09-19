@@ -1,24 +1,16 @@
-class product:
-    def __init__(self, sku, price, descricao, qtd):
+class Product:
+    def __init__(self, sku, name, price, qtd):
         self._sku = sku
+        self._nome = name
         self._price = price
-        self._descricao = descricao
         self._qtd = qtd
+
+    def get_sku(self):
+        return self._sku
 
     def get_price(self):
         return self._price
 
-    def get_estoque(self):
-        if self._qtd > 0:
-            result = True
-        else:
-            result = False
+    def is_available(self):
+        result = True if self._qtd > 0 else False
         return result
-
-    def get_product(self):
-        return {
-            "sku": self._sku,
-            "price": self._price,
-            "descricao": self._descricao,
-            "qtd": self._qtd
-        }

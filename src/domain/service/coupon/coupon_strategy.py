@@ -1,22 +1,21 @@
 from abc import ABC, abstractmethod
 
+
 class CouponStrategy(ABC):
     @abstractmethod
-    def apply_discount(self, value: float):
+    def apply_discount(self, value: float) -> float:
         pass
 
 
-class BlackFridayCoupon(CouponStrategy):
+class BackFridayCoupon(CouponStrategy):
     def apply_discount(self, value: float):
         if value < 300:
             return 0
-        return value * 0.20
+        return value*0.20
 
 
 class NatalCoupon(CouponStrategy):
     def apply_discount(self, value: float):
         if value < 800:
             return 0
-        return value * 0.30
-
-
+        return value*0.30
