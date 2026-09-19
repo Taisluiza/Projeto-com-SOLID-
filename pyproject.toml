@@ -9,6 +9,7 @@ package-mode = false
 python = ">=3.12"
 requests = ">=2.34.2,<3.0.0"
 pydantic = {extras = ["email"], version = "^2.13.5"}
+fastapi = "^0.141.1"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

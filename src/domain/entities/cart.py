@@ -1,50 +1,48 @@
-import uuid
-from typing import List
-from enum import StrEnumEnum, auto
+from enum import StrEnum, auto
+from typing import List, Optional
+from uuid import uuid4
 
-from domain.entities.product import product
+from src.domain.entities.product import Product
 
 
-class cartStatus(StrEnumEnum):
+class CartStatus(StrEnum):
     ACTIVE = auto()
     FINISHED = auto()
     EXPIRED = auto()
 
 
-class cart:
-    def __init__(self, products: List[product], cart_id: str):
+class Cart:
+    def __init__(self, products: List[Product], cart_id: Optional[uuid4] = None):
         self._products = products
         self._cart_id = cart_id
-        self._status = cartStatus.ACTIVE
-
+        self._status = CartStatus.ACTIVE
 
     def get_cart_id(self):
-        if not self._cart_id:
-            self._cart_id = uuid.uuid4()
+        if self._cart_id is None:
+            self._cart_id = uuid4()
         return self._cart_id
 
+    def add_new_product(self, produto: Product):
+        self._products.append(produto)
 
-    def add_novo_product(self, product: product):
-        self._products.append(product)
+    def remove_product(self, produto: Product):
+        self._products.remove(produto)
 
+    def _cal_subtotal(self):
+        prices = [
+            produto.get_price() for produto in self._products if produto.is_available()
+        ]
+        total = sum(prices)
+        self._subtotal = total
+        return total
 
-    def switch(self, new_status):
-        self._status = new_status
-        return self._status
-
+    def get_subtotal(self):
+        self._cal_subtotal()
+        return self._subtotal
 
     def get_status(self):
         return self._status
 
-
-    def _cal_subtotal(self):
-        prices = [
-            product.get_price() for product in self._products
-            if product.is_available() is True
-        ]
-        return sum(prices)
-
-
-    def get_subtotal(self):
-        return self._cal_subtotal()
-    
+    def switch(self, novo_status):
+        self._status = novo_status
+        return self._status

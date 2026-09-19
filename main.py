@@ -1,3 +1,4 @@
+
 database = []
 
 class Produto:
@@ -53,10 +54,19 @@ class Carrinho:
     def send_email(self, mensagem):
         print(mensagem)
 
-    def send_whatsapp(self, mensagem,):
+    def send_whatsapp(self, mensagem):
         print(mensagem)
 
     def notificar_cliente(self, itens, total, canal):
+        message = f"Seus {itens}, estão a caminho, já finalizamos sua compra no total de {total}"
+        if canal == "sms":
+            self.send_sms(message)
+        elif canal == "email":
+            self.send_email(message)
+        elif canal == "whatsapp":
+            self.send_whatsapp(message)
+        else:
+            raise  TypeError("modelo ainda não implementado")
         message = f"Seus {itens}, estão a caminho, já finalizamos sua compra no total de {total}"
         if canal == "sms":
             self.send_sms(message)
