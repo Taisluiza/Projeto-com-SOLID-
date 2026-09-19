@@ -1,45 +1,44 @@
 from abc import ABC, abstractmethod
+from typing import Generic, TypeVar, List
+from src.domain.entities.cart import Cart
 
+T = TypeVar('T')
 
-class RepositoryProtocol(ABC):
+class GetRepositoryProtocol(ABC, Generic[T]):
     @abstractmethod
-    def read(self, item_id: str):
-        pass
-
-    @abstractmethod
-    def save(self, data: dict):
-        pass
-
-    @abstractmethod
-    def delete(self, item_id: str):
+    def read(self, item_id: str) -> T:
         pass
 
 
-class GetRepositoryProtocol(ABC):
+class GetAllRepositoryProtocols(ABC,  Generic[T]):
     @abstractmethod
-    def read(self, item_id: str):
+    def read_all(self) -> List[T]:
         pass
 
 
-class GetAllRepositoryProtocols(ABC):
+class InsertRepositoryProtocol(ABC,  Generic[T]):
     @abstractmethod
-    def read_all(self):
+    def save(self, data: T):
         pass
 
 
-class InsertRepositoryProtocol(ABC):
-    @abstractmethod
-    def save(self, data: dict):
-        pass
-
-
-class DeleteRepositoryProtocol(ABC):
+class DeleteRepositoryProtocol(ABC, Generic[T]):
     @abstractmethod
     def delete(self, item_id: str):
         pass
 
 
-class UpdateRepositoryProtocol(ABC):
+class UpdateRepositoryProtocol(ABC, Generic[T]):
     @abstractmethod
-    def update(self, data: dict, item_id: str):
+    def update(self, data: T, item_id: str):
         pass
+
+
+class CartRepositoryProtocol(
+    GetRepositoryProtocol[Cart],
+    DeleteRepositoryProtocol[Cart],
+    InsertRepositoryProtocol[Cart],
+    UpdateRepositoryProtocol[Cart],
+    ABC
+):
+    pass
