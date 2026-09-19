@@ -53,7 +53,7 @@ class Carrinho:
     def send_email(self, mensagem):
         print(mensagem)
 
-    def send_whatsapp(self, mensagem):
+    def send_whatsapp(self, mensagem,):
         print(mensagem)
 
     def notificar_cliente(self, itens, total, canal):
